@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-10-31 10:36:17
 **/
 #include<bits/stdc++.h>
  
@@ -39,9 +39,25 @@ inline ll power(ll a, ll b) {
 }
 inline ll inv(ll a) { return power(a, mod - 2);}
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int t; cin >> t;
+    while(t--) {
+        string s, ans=""; cin >> s;
+        int n = s.length();
+
+        if(n == 1) {
+            cout << s << "\n";
+            continue;
+        }
+
+        s+= s[0];
+        for(int i=0;i<n;i++) {
+            ll a = s[i] - '0', b = s[i+1] - '0';
+            cout << (a^b);
+        }
+
+        cout << "\n";
+    }
     return 0;
 }

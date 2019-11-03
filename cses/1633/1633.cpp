@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-03 14:53:51
 **/
 #include<bits/stdc++.h>
  
@@ -41,7 +41,22 @@ inline ll inv(ll a) { return power(a, mod - 2);}
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
+const int N = 1e6+6;
+
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    
+    vl dp(N, 0);
+    dp[0] = 1;
+    
+    int n; cin >> n;
+    for(int i = 1; i <= n; i++) {
+        for(int j = i-1; j >= max(0,i-6); j--) {
+            dp[i] = add(dp[i], dp[j]);
+        }
+    }
+
+    cout << dp[n] << "\n";
+
     return 0;
 }

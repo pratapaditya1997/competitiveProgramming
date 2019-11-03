@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-10-30 19:07:13
 **/
 #include<bits/stdc++.h>
  
@@ -39,9 +39,43 @@ inline ll power(ll a, ll b) {
 }
 inline ll inv(ll a) { return power(a, mod - 2);}
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+const int N = 1e5+5;
+
+vi g[N];
+vi lev, vis;
+int n;
+
+void dfs(int v, int depth) {
+    lev[depth] += 1;
+    vis[v] = true;
+
+    for(int u: g[v]) {
+        if(!vis[u]) dfs(u, depth+1);
+    }
+}
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    cin >> n;
+    for(int i=0; i<n-1; i++) {
+        int from,to; cin >> from >> to;
+        g[from].pb(to);
+        g[to].pb(from);
+    }
+
+    lev.assign(n+1, 0);
+    vis.assign(n+1, 0);
+    dfs(1,1);
+
+    int best=0, ans=1;
+    for(int i=1; i<=n; i++) {
+        if(lev[i] > best) {
+            best = lev[i];
+            ans = i;
+        }
+    }
+
+    cout << ans << "\n";
+
     return 0;
 }

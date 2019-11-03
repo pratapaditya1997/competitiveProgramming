@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-03 16:25:57
 **/
 #include<bits/stdc++.h>
  
@@ -43,5 +43,27 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int n; cin >> n;
+    int s = (n * (n+1))/2;
+
+    if(s&1) {
+        cout << 0 << "\n";
+        return 0;
+    }
+
+    s /= 2;
+    vvl dp(n+1, vl(s+1, 0));
+    dp[0][0] = 1;
+
+    for(int i=1; i<=n; i++) {
+        for(int j = 0; j<=s; j++) {
+            dp[i][j] = add(dp[i][j], dp[i-1][j]);
+            if((j-i) >= 0) {
+                dp[i][j] = add(dp[i][j], dp[i-1][j-i]);
+            }
+        }
+    }
+
+    cout << mul(dp[n][s], inv(2)) << "\n";
     return 0;
 }

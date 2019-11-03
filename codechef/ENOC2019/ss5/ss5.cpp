@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-10-30 19:33:14
 **/
 #include<bits/stdc++.h>
  
@@ -39,9 +39,48 @@ inline ll power(ll a, ll b) {
 }
 inline ll inv(ll a) { return power(a, mod - 2);}
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+const int N = 5e4+4;
+
+vi g[N];
+vi cnt, grp, ans, vis;
+int n;
+
+void dfs(int v) {
+    vis[v] = true;
+    for(int u: g[v]) {
+        if(!vis[u]) {
+            dfs(u);
+        }
+    }
+    cnt[grp[v]]++;
+    int maxi = 0;
+    for(int i=0; i<n; i++) maxi = max(maxi, cnt[i]);
+    ans[v] = maxi;
+}
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    
+    cin >> n;
+    cnt.assign(n, 0);
+    grp.assign(n, 0);
+    ans.assign(n, 0);
+    vis.assign(n, 0);
+
+    for(int i=0; i<n; i++) {
+        cin >> grp[i];
+        grp[i]--;
+    }
+
+    for(int i=0; i<n-1; i++) {
+        int v,u; cin >> v >> u;
+        v--; u--;
+        g[v].pb(u);
+        g[u].pb(v);
+    }
+
+    dfs(0);
+    for(int i=0; i<n; i++) cout << ans[i] << " ";
+
     return 0;
 }

@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-03 15:35:15
 **/
 #include<bits/stdc++.h>
  
@@ -43,5 +43,23 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    
+    int n,x; cin >> n >> x;
+    vl dp(x+1, mod);
+    vl coins(n);
+
+    for(int i=0; i<n; i++) cin >> coins[i];
+    sort(all(coins));
+
+    dp[0] = 0;
+    for(int i=1; i<=x; i++) {
+        for(int j: coins) {
+            if(i >= j) dp[i] = min(dp[i], dp[i-j] + 1);
+        }
+    }
+    
+    if(dp[x] == mod) dp[x] = -1;
+    cout << dp[x] << "\n";
+
     return 0;
 }
