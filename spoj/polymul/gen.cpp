@@ -5,13 +5,13 @@ int main(int argc, char* argv[]) {
     srand(atoi(argv[1]));
     
     cout << 1 << "\n";
-    cout << 9 << "\n";
-    for(int i=0; i<10; i++) {
-        cout << rand() % 9999 + 2 << " ";
+    cout << 100 << "\n";
+    for(int i=0; i<100; i++) {
+        cout << rand() % 1001 << " ";
     }
     cout << "\n";
-    for(int i=0; i<10; i++) {
-        cout << rand() % 9999 + 2 << " ";
+    for(int i=0; i<100; i++) {
+        cout << rand() % 1001 << " ";
     }
     cout << endl;
 

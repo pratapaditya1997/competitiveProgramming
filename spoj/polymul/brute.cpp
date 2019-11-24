@@ -1,79 +1,76 @@
-/* 
- * Author: aps
- * Time: 2019-11-20 18:12:31
-**/
-#include<bits/stdc++.h>
- 
-#define fi first
-#define se second
-#define pb push_back
-#define sz(x) (int)x.size()
-#define all(x) x.begin(), x.end()
- 
+#include <bits/stdc++.h>
 using namespace std;
- 
-typedef long long int ll;
-typedef long double ld;
-typedef pair<ll,ll> pll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef vector<ll> vl;
-typedef vector<vl> vvl;
-typedef pair<int,int> pii;
- 
-const ll inf = 1e18;
-const ll mod = 1e9+7;
- 
-inline ll add(ll x, ll y) { x += y; if (x >= mod) x -= mod; return x;}
-inline ll sub(ll x, ll y) { x -= y; if (x < 0) x += mod; return x;}
-inline ll mul(ll x, ll y) { return ((x % mod) * (y % mod)) % mod;}
-inline ll gcd(ll x, ll y) { return x == 0 ? y : gcd(y % x, x); }
-inline ll power(ll a, ll b) {
-    ll x = 1;
-    while (b) {
-        if (b & 1) x = mul(x, a);
-        a = mul(a, a);
-        b >>= 1;
-    }
-    return x;
+const double PI = acos(-1);
+typedef complex<double> base;
+vector<base> omega;
+long long FFT_N , mod = 1e18;
+void init_fft(long long n)
+{
+  FFT_N  = n;
+  omega.resize(n);
+  double angle = 2 * PI / n;
+  for(int i = 0; i < n; i++)
+    omega[i] = base( cos(i * angle), sin(i * angle));
 }
-inline ll inv(ll a) { return power(a, mod - 2);}
-
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
-template<class T>
-vector<T> multiply(vector<T> a,vector<T> b) {
-    int n = 1, sz1 = sz(a), sz2 = sz(b);
-    while(n < sz(a) + sz(b)) n <<= 1;
-
-    reverse(all(a));
-    reverse(all(b));
-    vector<T> result(n, 0);
-    for(int i=0; i<sz1; i++) {
-        for(int j=0; j<sz2; j++) {
-            result[i+j] += a[i] * b[j]; 
-        }
+void fft (vector<base> & a)
+{
+  long long n = (long long) a.size();
+  if (n == 1)  return;
+  long long half = n >> 1;
+  vector<base> even (half),  odd (half);
+  for (int i=0, j=0; i<n; i+=2, ++j)
+    {
+      even[j] = a[i];
+      odd[j] = a[i+1];
     }
-    return result;
+  fft (even), fft (odd);
+  for (int i=0, fact = FFT_N/n; i < half; ++i)
+    {
+      base twiddle =  odd[i] * omega[i * fact] ;
+      a[i] =  even[i] + twiddle;
+      a[i+half] = even[i] - twiddle;
+    }
+}
+void multiply (const vector<long long> & a, const vector<long long> & b, vector<long long> & res)
+{
+  vector<base> fa (a.begin(), a.end()),  fb (b.begin(), b.end());
+  long long n = 1;
+  while (n < 2*max (a.size(), b.size()))  n <<= 1;
+  fa.resize (n),  fb.resize (n);
+
+  init_fft(n);
+  fft (fa),  fft (fb);
+  for (size_t i=0; i<n; ++i)
+    fa[i] = conj( fa[i] * fb[i]);
+  fft (fa);
+  res.resize (n);
+  for (size_t i=0; i<n; ++i)
+    {
+      res[i] = (long long) (fa[i].real() / n + 0.5);
+    }
 }
 
 int main(){
-    ios_base::sync_with_stdio(false); cin.tie(0);
-    int t; cin >> t;
-    while(t--) {
-        int n; cin >> n;
-        ++n;
-        vi a(n), b(n);
-        for(int i=0; i<n; i++) cin >> a[i];
-        for(int i=0; i<n; i++) cin >> b[i];
-        vi ans = multiply(a, b);
-        
-        n = 2 * n - 1;
-        vi fin;
-        for(int i=0; i<n; i++) fin.pb(ans[i]);
-        reverse(all(fin));
-        for(int i=0; i<n; i++) cout << fin[i] << " ";
-        cout << "\n";
+  int t;
+  scanf("%d" , &t);
+  while(t--){
+    int n;
+    scanf("%d" , &n);
+    vector<long long> a, b ,c;
+    int temp = 0;
+    for(int i = 0 ; i <= n; i++){
+        scanf("%d" ,&temp);
+        a.push_back(temp);
     }
-    return 0;
+    for(int i = 0 ; i <= n ;i++){
+        scanf("%d" , &temp);
+        b.push_back(temp);
+    }
+    multiply(a,b,c);
+   
+    for(int i = 0 ; i < 2 * n + 1 ;i++){
+        printf("%lld ", c[i]);
+    }
+    printf("\n" );
+  }
 }

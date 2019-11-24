@@ -1,6 +1,6 @@
 /* 
  * Author: aps
- * Time: 2019-11-20 18:12:31
+ * Time: 2019-11-20 17:43:26
 **/
 #include<bits/stdc++.h>
  
@@ -46,26 +46,30 @@ const double PI = acos(-1);
 
 void fft(vector<cd>& a, bool invert) {
     int n = sz(a);
-    if(n == 1) return;
-
-    vector<cd> a0(n/2), a1(n/2);
-    for(int i=0; 2*i < n; i++) {
-        a0[i] = a[2*i];
-        a1[i] = a[2*i+1];
+    
+    for(int i=1,j=0; i<n; i++) {
+        int bit = n >> 1;
+        for(; j&bit; bit >>= 1) j ^= bit;
+        j ^= bit;
+        if(i < j) swap(a[i], a[j]);
     }
-    fft(a0, invert);
-    fft(a1, invert);
 
-    double ang = 2 * PI / n * (invert ? -1: 1);
-    cd w(1), wn(cos(ang), sin(ang));
-    for(int i=0; 2*i < n; i++) {
-        a[i] = a0[i] + w * a1[i];
-        a[i + n/2] = a0[i] - w * a1[i];
-        if(invert) {
-            a[i] /= 2;
-            a[i + n/2] /= 2;
+    for(int len=2; len<=n; len <<= 1) {
+        double ang = 2 * PI / len * (invert ? -1 : 1);
+        cd wlen(cos(ang), sin(ang));
+        for(int i=0; i<n; i+=len) {
+            cd w(1);
+            for(int j=0; j<len/2; j++) {
+                cd u = a[i+j], v = a[i+j+len/2] * w;
+                a[i+j] = u+v;
+                a[i+j+len/2] = u-v;
+                w *= wlen;
+            }
         }
-        w *= wn;
+    }
+
+    if(invert) {
+        for(cd& x: a) x /= n;
     }
 }
 
@@ -89,18 +93,13 @@ vector<T> multiply(vector<T> const& a,vector<T> const& b) {
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
-    int t; cin >> t;
-    while(t--) {
-        int n; cin >> n;
-        ++n;
-        vl a(n), b(n);
-        for(int i=0; i<n; i++) cin >> a[i];
-        for(int i=0; i<n; i++) cin >> b[i];
-        vl ans = multiply(a, b);
-        
-        n = 2 * n - 1;
-        for(int i=0; i<n; i++) cout << ans[i] << " ";
-        cout << "\n";
-    }
+    vl a = {1,2,3};
+    vl b = {3,2,1};
+    vl res = multiply(a, b);
+    
+    int n = sz(a) + sz(b) - 1;
+    for(int i=0; i<n; i++) cout << res[i] << " ";
+    cout << endl;
+
     return 0;
 }
