@@ -1,10 +1,8 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-29 20:07:51
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
@@ -12,11 +10,7 @@
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
  
-using namespace __gnu_pbds;
 using namespace std;
-
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 typedef long long int ll;
 typedef long double ld;
@@ -49,5 +43,24 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int t; cin >> t;
+    while(t--) {
+        vl a(3);
+        cin >> a[0] >> a[1] >> a[2];
+        sort(all(a));
+        ll ans = 0;
+
+        ll del = min(a[0],a[2] - a[1]);
+        a[0] -= del;
+        ans += del;
+        a[2] -= del;
+
+        ans += a[0];
+        a[1] -= a[0]/2;
+        a[2] -= a[0]/2;
+        if(a[0]&1) a[2] -= 1;
+        ans += min(a[1], a[2]);
+        cout << ans << "\n";
+    }
     return 0;
 }

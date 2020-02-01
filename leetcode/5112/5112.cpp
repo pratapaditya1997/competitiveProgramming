@@ -1,10 +1,8 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-30 20:01:20
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
@@ -12,11 +10,7 @@
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
  
-using namespace __gnu_pbds;
 using namespace std;
-
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 typedef long long int ll;
 typedef long double ld;
@@ -47,7 +41,38 @@ inline ll inv(ll a) { return power(a, mod - 2);}
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
+class Solution {
+    public:
+    string toHexspeak(string num){
+        ll val = 0;
+        int n = sz(num);
+        for(int i=0; i<n; i++) {
+            val = val*10 + (num[i]-'0');
+        }
+
+        //cout << val << endl;
+        vi ret;
+        while(val) {
+            ret.pb(val%16);
+            val/=16;
+        }
+
+        reverse(all(ret));
+        for(int v: ret) if(v > 1 && v < 10) return "ERROR";
+        
+        string ans = "";
+        map<int,char> mapping = {{0,'O'},{1,'I'},{10,'A'},{11,'B'},{12,'C'},{13,'D'},{14,'E'},{15,'F'}};
+        for(int v: ret) {
+            ans += mapping[v];
+        }
+
+        return ans;
+    }
+};
+
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    Solution sol;
+    cout << sol.toHexspeak("257") ;
     return 0;
 }

@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-12-28 22:43:43
 **/
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
@@ -49,5 +49,12 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int t; cin >> t;
+    while(t--) {
+        ll n,k; cin >> n >> k;
+        ll x = n%k;
+        ll ans = max(0LL,x-(k/2));
+        cout << n-ans << endl;
+    }
     return 0;
 }

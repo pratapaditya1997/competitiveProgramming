@@ -1,10 +1,8 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-30 13:57:03
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
@@ -12,11 +10,7 @@
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
  
-using namespace __gnu_pbds;
 using namespace std;
-
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 typedef long long int ll;
 typedef long double ld;
@@ -46,6 +40,36 @@ inline ll power(ll a, ll b) {
 inline ll inv(ll a) { return power(a, mod - 2);}
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+/*
+dsu d(n);
+d.unite(x, y);
+d.get(i);
+*/
+class dsu {
+    public:
+    vector<int> p;
+    int n;
+
+    dsu(int _n) : n(_n) {
+        p.resize(n);
+        iota(p.begin(), p.end(), 0);
+    }
+
+    inline int get(int x) {
+        return (x == p[x] ? x : (p[x] = get(p[x])));
+    }
+
+    inline bool unite(int x, int y) {
+        x = get(x);
+        y = get(y);
+        if(x != y) {
+            p[x] = y;
+            return true;
+        }
+        return false;
+    }
+};
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);

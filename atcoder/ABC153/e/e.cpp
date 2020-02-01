@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2020-01-26 22:48:51
 **/
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
@@ -47,7 +47,49 @@ inline ll inv(ll a) { return power(a, mod - 2);}
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
+const int MX = 2e4+4;
+
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int h,n; cin >> h >> n;
+    vi a(n+1,0), b(n+1,0);
+
+    for(int i=1; i<=n; i++) {
+        cin >> a[i] >> b[i];
+    }
+
+    vvi dp(n+1, vi (h+1, 1e8));
+    dp[0][0] = 0;
+    for(int i=0; i<=n; i++) dp[i][0] = 0;
+
+    for(int i=1; i<=n; i++) {
+        for(int j=1; j<=h; j++) {
+            int val = dp[i][j];
+            int prev = max(0, j-a[i]);
+            val = min(val, dp[i][prev] + b[i]);
+            val = min(val, dp[i-1][j]);
+            dp[i][j] = val;
+        }
+    }
+
+    cout << dp[n][h] << "\n";
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

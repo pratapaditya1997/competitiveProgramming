@@ -1,10 +1,8 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-30 00:34:03
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
@@ -12,11 +10,7 @@
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
  
-using namespace __gnu_pbds;
 using namespace std;
-
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 typedef long long int ll;
 typedef long double ld;
@@ -49,5 +43,35 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int t; cin >> t;
+    while(t--) {
+        int n; cin >> n;
+        set<int> left = {1,2,3,4,5,6,7,8,9,0};
+
+        vector<pair<string,int>> v(n);
+        for(int i=0; i<n; i++) {
+            cin >> v[i].fi;
+            v[i].se = i;
+            left.erase(v[i].fi[0] - '0');
+        }
+
+        sort(all(v));
+
+        int ans = 0;
+        for(int i=1; i<n; i++) {
+            if(v[i].fi == v[i-1].fi) {
+                ans++;
+                int toUse = *left.begin();
+                v[i-1].fi[0] = char(toUse + '0');
+                left.erase(toUse);
+            }
+        }
+
+        vector<string> answer(n);
+        for(int i=0; i<n; i++) answer[v[i].se] = v[i].fi;
+
+        cout << ans << "\n";
+        for(string str: answer) cout << str << "\n";
+    }
     return 0;
 }

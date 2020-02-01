@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-12-28 22:59:04
 **/
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
@@ -49,5 +49,35 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int n; cin >> n;
+    vi a(n);
+    set<int> unused;
+
+    for(int i=1; i<=n; i++) unused.insert(i);
+    for(int i=0; i<n; i++) {
+        cin >> a[i];
+        unused.erase(a[i]);
+    }
+
+    auto print = [](set<int> s) {
+        cout << "unused: ";
+        for(int i: s) cout << i << " ";
+        cout << endl;
+    };
+
+    for(int i=n-1; i>=0; i--) {
+        if(a[i]) continue;
+        auto it = unused.begin();
+        int val = *it;
+        if((i+1) == val) {
+            it++;
+            val = *it;
+        }
+        a[i] = val;
+        unused.erase(val);
+    }
+
+    for(int i=0; i<n; i++) cout << a[i] << " ";
+    cout << endl;
     return 0;
 }

@@ -1,10 +1,8 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-29 17:36:36
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
@@ -12,11 +10,7 @@
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
  
-using namespace __gnu_pbds;
 using namespace std;
-
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 typedef long long int ll;
 typedef long double ld;
@@ -46,6 +40,33 @@ inline ll power(ll a, ll b) {
 inline ll inv(ll a) { return power(a, mod - 2);}
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+template <typename T>
+class fenwick {
+public:
+    vector<T> fenw;
+    int n;
+ 
+    fenwick(int _n): n(_n) {
+        fenw.resize(n);
+    }
+ 
+    void modify(int x, T v) {
+        while(x < n) {
+            fenw[x] += v;
+            x |= (x+1);
+        }
+    }
+ 
+    T get(int x) {
+        T v{};
+        while(x >= 0) {
+            v += fenw[x];
+            x = (x & (x+1)) - 1;
+        }
+        return v;
+    }
+};
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);

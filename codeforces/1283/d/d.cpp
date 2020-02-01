@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-12-28 23:21:37
 **/
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
@@ -49,5 +49,38 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int n,m,ans=0; cin >> n >> m;
+    vi trees(n);
+    map<int, int> x,y;
+
+    for(int i=0; i<n; i++) {
+        cin >> trees[i];
+        x[trees[i]] = 1;
+    }
+
+    int delta = 0;
+    while(m) {
+        delta++;
+        for(int i=0; i<n; i++) {
+            if(m == 0) break;
+            int pos = trees[i] - delta;
+            if(x[pos] == 0 && y[pos] == 0) {
+                y[pos] = 1;
+                ans += delta;
+                --m;
+            }
+            if(m == 0) break;
+            pos = trees[i] + delta;
+            if(x[pos] == 0 && y[pos] == 0) {
+                y[pos] = 1;
+                ans += delta;
+                --m;
+            }
+        }
+    }
+
+    cout << ans << endl;
+    for(auto p: y) cout << p.fi << " ";
+    cout << endl;
     return 0;
 }

@@ -1,6 +1,6 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2020-01-26 21:57:22
 **/
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
@@ -49,5 +49,13 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    ll h; cin >> h;
+    ll ans = 0, val = 1LL;
+    while(h) {
+        ans += val;
+        val *= 2;
+        h /= 2;
+    }
+    cout << ans << "\n";
     return 0;
 }

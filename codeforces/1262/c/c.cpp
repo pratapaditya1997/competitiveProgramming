@@ -1,10 +1,8 @@
 /* 
- * Author: $%U%$
- * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+ * Author: aps
+ * Time: 2019-11-29 13:58:20
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
@@ -12,11 +10,7 @@
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
  
-using namespace __gnu_pbds;
 using namespace std;
-
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 typedef long long int ll;
 typedef long double ld;
@@ -49,5 +43,30 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    int t; cin >> t;
+    while(t--) {
+        int n,k; cin >> n >> k;
+        string s,t = ""; cin >> s;
+        
+        for(int i=0; i<k-1; i++) t += "()";
+        for(int i=0; i<n/2+1-k; i++) t += "(";
+        for(int i=0; i<n/2+1-k; i++) t += ")";
+
+        vector<pii> moves;
+        for(int i=0; i<n; i++) {
+            if(s[i] != t[i]) {
+                for(int j = i+1; j<n; j++) {
+                    if(s[j] == t[i]) {
+                        moves.pb({i+1 ,j+1});
+                        reverse(s.begin()+i, s.begin() + j + 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        cout << sz(moves) << "\n";
+        for(auto x: moves) cout << x.fi << " " << x.se << "\n";
+    }
     return 0;
 }
