@@ -50,6 +50,12 @@ public:
     fenwick(int _n): n(_n) {
         fenw.resize(n);
     }
+
+    fenwick(const vector<T>& a): fenwick(size(a)) {
+        for(size_t i=0; i<size(a); i++) {
+            modify(i, a[i]);
+        }
+    }
  
     void modify(int x, T v) {
         while(x < n) {
@@ -65,6 +71,10 @@ public:
             x = (x & (x+1)) - 1;
         }
         return v;
+    }
+
+    T getRange(int l, int r) {
+        return get(r) - get(l-1);
     }
 };
 
