@@ -1,14 +1,15 @@
 /* 
  * Author: aps
- * Time: 2019-11-30 13:57:03
+ * Time: 2021-02-19 17:13:27
 **/
 #include<bits/stdc++.h>
  
 #define fi first
 #define se second
 #define pb push_back
+#define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
- 
+
 using namespace std;
  
 typedef long long int ll;
@@ -38,44 +39,46 @@ inline ll power(ll a, ll b) {
 }
 inline ll inv(ll a) { return power(a, mod - 2);}
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+const int N = 1e4+4;
 
-/*
-dsu d(n);
-d.unite(x, y);
-d.get(i);
-*/
-class dsu {
-    public:
-    vector<int> p, sz;
-    int n;
+vector<pii> g[N];
+vi d;
 
-    dsu(int _n) : n(_n) {
-        p.resize(n);
-        sz.assign(n, 1);
-        iota(p.begin(), p.end(), 0);
-    }
+void dijk(int s) {
+    d[s] = 0;
+    set<pii> q;
+    q.insert({0,s});
+    while(!q.empty()) {
+        int v = q.begin()->second;
+        q.erase(q.begin());
 
-    inline int get(int x) {
-        return (x == p[x] ? x : (p[x] = get(p[x])));
-    }
+        for(auto edge: g[v]) {
+            int to = edge.first;
+            int len = edge.second;
 
-    inline bool unite(int x, int y) {
-        x = get(x);
-        y = get(y);
-        if(x != y) {
-            if (sz[x] < sz[y]) {
-                swap(x, y);
+            if (d[v] + len < d[to]) {
+                q.erase({d[to], to});
+                d[to] = d[v] + len;
+                q.insert({d[to], to});
             }
-            p[y] = x;
-            sz[x] += sz[y];
-            return true;
         }
-        return false;
     }
-};
+}
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
+    
+    int n,m; cin >> n >> m;
+    for(int i=0; i<m; i++) {
+        int u,v,w; cin >> u >> v >> w;
+        g[u].pb({v,w});
+    }
+
+    d.assign(n,mod);
+    dijk(0);
+
+    for(int i=0; i<n; i++) {
+        cout << d[i] << " ";
+    }
     return 0;
 }

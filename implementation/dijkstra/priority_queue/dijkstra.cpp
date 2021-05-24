@@ -80,7 +80,7 @@ int main(){
     dijk(0);
 
     for(int i=0; i<n; i++) {
-        cout << "min distance to: " << i << " = " << d[i] << "\n";
+        cout << d[i] << " ";
     }
     return 0;
 }

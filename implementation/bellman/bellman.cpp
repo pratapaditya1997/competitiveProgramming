@@ -44,6 +44,11 @@ int n,m,v;
 vector<edge> e;
 vi d, p;
 
+/**
+* vertex y either lies in the -ve cycle or it is reachable from it
+* to get vertices that are guaranteed to be the in the -ve cycle, starting from vertex y
+* pass through the parents n times
+*/
 void cyclePresent(int y) {
     for(int i=0; i<n; i++) y = p[y];
 

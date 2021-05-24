@@ -41,14 +41,17 @@ inline ll inv(ll a) { return power(a, mod - 2);}
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
+/*
+* 0-based implementation
+*/
 template <typename T>
 class fenwick {
 public:
-    vector<T> fenw;
+    vector<T> bit;
     int n;
  
     fenwick(int _n): n(_n) {
-        fenw.resize(n);
+        bit.resize(n);
     }
 
     fenwick(const vector<T>& a): fenwick(size(a)) {
@@ -59,18 +62,23 @@ public:
  
     void modify(int x, T v) {
         while(x < n) {
-            fenw[x] += v;
+            bit[x] += v;
             x |= (x+1);
         }
     }
+
+    void modify_range(int l, int r, T v) {
+        modify(l, v);
+        modify(r + 1, -v);
+    }
  
     T get(int x) {
-        T v{};
+        T ret{};
         while(x >= 0) {
-            v += fenw[x];
+            ret += bit[x];
             x = (x & (x+1)) - 1;
         }
-        return v;
+        return ret;
     }
 
     T getRange(int l, int r) {

@@ -3,20 +3,14 @@
  * Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
 **/
 #include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
  
 #define fi first
 #define se second
 #define pb push_back
 #define sz(x) (int)x.size()
 #define all(x) x.begin(), x.end()
- 
-using namespace __gnu_pbds;
-using namespace std;
 
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+using namespace std;
  
 typedef long long int ll;
 typedef long double ld;
@@ -44,8 +38,6 @@ inline ll power(ll a, ll b) {
     return x;
 }
 inline ll inv(ll a) { return power(a, mod - 2);}
-
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);

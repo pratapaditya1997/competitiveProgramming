@@ -1,0 +1,77 @@
+1. Use const as much as possible
+const tells the compiler that a variable or method is immutable. This helps the compiler optimize the code and helps the dev know if a function has a side effect. Also, using const & prevents the compiler from copying the data unnecessarily.
+- const: applies for variables, and prevent them from being modified
+- constexpr: tells the compiler that this expression result in a compile time constant, so it can be used in places like array lengths, assigning to const variables etc.
+
+
+Guidelines for const and immutability
+	a) by default, make objects immutable
+	- const int val {12};
+
+	b) by default, make member functions const
+	- declaring member functions as const has two benefits. An immutable object can only invoke const methods and const methods cannot modify the underlying object.
+
+	c) by default, pass pointers and references to const
+	- if you pass pointers or references as const to function, the intention is that referenced object would not be modified.
+
+	d) use const to define objects with values that do not change after construction
+	e) use constexpr for values that can be computed at compile time
+
+2. Use C++ style cast instead of C style cast
+use C++ style cast (static_cast<>, dynamic_cast<>) instead of C style cast. C++ style cast allows more compiler checks and is considerably safer.
+
+3. Style
+- use consistent style in naming things. It can be CamelCase or snake_case. snake_case has the advantage that it can also work with spell checkers, if desired.
+- use only spaces, and indent 2 spaces at a time
+- use // comments rather than /**/
+- use spaces around assignment operator
+
+4. Use nullptr
+C++11 introduces nullptr which is a special value denoting a null pointer. This should be used instead of 0 and NULL to indicate a null pointer.
+
+5. Avoid global data
+Global data leads to unintended side effects between functions and can make code difficult or impossible to parallelize.
+
+6. Use Initializer lists
+initializer lists are significantly more efficient, reducing object copies and resizing of the containers.
+use vector<int> v{1, 2}; rather than 
+vector<int> v;
+v.push_back(1);
+v.push_back(2);
+
+7. Get rid of endl
+endl implies a flush operation. It is equivalent to "\n" << flush;
+Also, use '\n' and not "\n" because first one is char and second is string. string has to be parsed by the compiler as a const char * which has to do a range check for \0 when writing it to the stream. '\n' is a single character and avoids many CPU instructions.
+
+8. Limit variable scope
+declare the variables as late as possible, and ideally only when it is possible to initialize the object. reduced variable scope results in less memory being used, more efficient code in general, and helps the compiler optimize the code further.
+
+9. Prefer ++i to i++
+pre-increment is faster than post-increment because it does not require a copy of the object to be made
+
+10. Inline functions
+declare functions inline when they are small, say, 10 lines or fewer
+
+11. Naming Guide
+- Type names
+	start with capital letter and uses CamelCase. the names of all types: classes, structs, enums, type aliases, and type template parameters all use this convention.
+- variable names
+	names of variables (including function parameters) and data members are all snake_case. 
+	Data members of classes (but not structs) have additional trailing underscore
+	eg. local_variable, struct_data_member, class_data_member_
+- constant names
+	variables declared as constexpr or const, are named with leading k followed by CamelCase
+- function names
+	uses CamelCase
+
+12. sizeof
+prefer sizeof(varname) to sizeof(type)
+
+
+
+
+
+
+
+
+
