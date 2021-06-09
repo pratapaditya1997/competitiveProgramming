@@ -41,18 +41,13 @@ inline ll inv(ll a) { return power(a, mod - 2);}
 
 template<class T>
 struct matrix {
-    T** d;
+    vector<vector<T>> d;
     int n,m;
 
     matrix() { n = m = 0; }
 
-    matrix(int _n, int _m) {
-        n = _n, m = _m;
-        d = new T*[n];
-        for(int i=0; i<n; i++) {
-            d[i] = new T[m];
-            for(int j=0; j<m; j++) d[i][j] = 0;
-        }
+    matrix(int _n, int _m): n(_n), m(_m) {
+        d = vector<vector<T>> (n, vector<T>(m, 0));
     }
 
     matrix(const vector<vector<T>>& v) : matrix(sz(v), sz(v[0])) {
@@ -106,8 +101,8 @@ struct matrix {
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
 
-    matrix<int> a = matrix<int>(2,3);
-    matrix<int> b = matrix<int>(3,2);
+    matrix<int> a(2,3);
+    matrix<int> b(3,2);
 
     a.d[0][0] = 1; a.d[0][1] = 2; a.d[0][2] = 3;
     a.d[1][0] = 4; a.d[1][1] = 5; a.d[1][2] = 6;

@@ -1,0 +1,103 @@
+1. vector
+	dynamically allocated arrays
+
+	common functions:-
+	- push_back()
+	- pop_back()
+	- size()
+	- clear()
+	- erase() deleted specified index or data
+	- empty()
+	- lower_bound() returns iterator pointing to first element in the range [first, last] which has a value not less than 'val' i.e. >= val
+	- upper_bound() returns iterator pointing to first element in the range [first, last] which has a value greater than 'val' i.e. > val
+	- begin() returns iterator to first element
+	- end() returns iterator to the last element
+	- resize() resizes the container
+	- assign() assign some values to the container
+	- front() returns a reference to the first element
+	- back() returns a reference to the last element
+
+2. stack
+	LIFO  data structure
+
+	common functions:-
+	- push()
+	- pop()
+	- top()
+	- empty()
+	- size()
+
+3. queue
+	FIFO data structure
+
+	common functions:-
+	- push()
+	- pop()
+	- front()
+	- empty()
+	- back() returns the last element of the queue
+	- size()
+
+4. priority queue
+	heap
+
+	common functions:-
+	- push()
+	- pop()
+	- size()
+	- empty()
+	- top()
+
+	providing custom comparator:-
+	create a struct and override () operator
+
+	struct Comp {
+		bool operator () (const int& a, const int& b) const {
+			return a > b;
+		}
+	};
+
+	priority_queue<int, vector<int>, Comp> pq;
+
+5. set
+	associative container where each element is unique.
+
+	common functions:-
+	- insert()
+	- begin() returns iterator to the first element in the set
+	- end() returns iterator to the theoretical element that follows the last element in the set
+	- size()
+	- find() returns iterator to searched element if present, else iterator to end
+	- count() returns count of occurences in a set. 1 if present, else 0
+	- empty() 
+
+6. list
+	store data in non-contiguous manner
+
+	common functions:-
+	- push_front() insert value at the start of the list
+	- push_back()
+	- pop_front()
+	- pop_back()
+	- front() returns value of the first element in the list
+	- back() returns value of the last element in the list
+	- empty()
+
+7. unordered map
+	hash table
+
+	common functions:-
+	- count()
+	- erase()
+	- clear()
+	- size()
+
+8. ordered map
+	tree based map
+
+	common functions:-
+	- count()
+	- erase()
+	- clear()
+	- size()
+

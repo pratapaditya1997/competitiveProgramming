@@ -43,9 +43,9 @@ void erase(const string str) {
 	int cur = 0;
 	for (char c: str) {
 		words_count[cur]--;
-		int nxt = trie[cur][c];
+		int nxt = trie[cur][c - 'a'];
 		if (words_count[nxt] == 1) {
-			trie[cur][c] = -1;
+			trie[cur][c - 'a'] = -1;
 		}
 		cur = nxt;
 	}
@@ -58,7 +58,7 @@ void erase(const string str) {
 int search(const string str) {
 	int cur = 0;
 	for (char c: str) {
-		int nxt = trie[cur][c];
+		int nxt = trie[cur][c - 'a'];
 		if (nxt == -1) return 0;
 		cur = nxt;
 	}

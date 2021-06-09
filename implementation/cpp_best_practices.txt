@@ -1,3 +1,6 @@
+Run c++ file
+g++ -o e.exe .\e.cpp
+
 1. Use const as much as possible
 const tells the compiler that a variable or method is immutable. This helps the compiler optimize the code and helps the dev know if a function has a side effect. Also, using const & prevents the compiler from copying the data unnecessarily.
 - const: applies for variables, and prevent them from being modified
