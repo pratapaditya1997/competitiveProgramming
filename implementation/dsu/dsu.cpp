@@ -46,7 +46,7 @@ d.unite(x, y);
 d.get(i);
 */
 class dsu {
-    public:
+public:
     vector<int> p, sz;
     int n;
 

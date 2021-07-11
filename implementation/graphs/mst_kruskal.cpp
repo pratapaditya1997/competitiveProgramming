@@ -8,9 +8,8 @@ class dsu {
 
     dsu(int _n) : n(_n) {
         p.resize(n);
-        sz.resize(n);
+        sz.assign(n, 1);
         iota(p.begin(), p.end(), 0);
-        fill(sz.begin(), sz.end(), 1);
     }
 
     inline int get(int x) {

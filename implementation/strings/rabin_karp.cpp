@@ -6,7 +6,7 @@ typedef long long int ll;
 const int p = 31;
 const int m = 1e9 + 9;
 
-vector<int> rabin_karp(string const& s, string const& t) {
+vector<int> rabin_karp(const string& s, const string& t) {
 	int S = s.size(), T = t.size();
 
 	vector<ll> p_pow(max(S,T));

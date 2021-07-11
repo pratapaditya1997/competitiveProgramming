@@ -58,22 +58,18 @@ vi g[N];
 vector<bool> used;
 vi d, p;
 
-void bfs(int src)
-{
+void bfs(int src) {
     queue<int> q;
 
     q.push(src);
     used[src] = true;
     p[src] = -1;
 
-    while (!q.empty())
-    {
+    while (!q.empty()) {
         int v = q.front();
         q.pop();
-        for (int u : g[v])
-        {
-            if (used[u])
-                continue;
+        for (int u : g[v]) {
+            if (used[u]) continue;
             used[u] = true;
             q.push(u);
             d[u] = d[v] + 1;
@@ -82,8 +78,7 @@ void bfs(int src)
     }
 }
 
-int main()
-{
+int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 
@@ -99,8 +94,9 @@ int main()
     p.resize(n);
     bfs(1);
 
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n; i++) {
         cout << "dist: " << d[i] << " par: " << p[i] << "\n";
+    }
 
     return 0;
 }

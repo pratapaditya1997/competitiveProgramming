@@ -1,0 +1,155 @@
+- struct vs class
+struct - members are public by default. when deriving struct from a class/struct default access specifiers for base class/struct are public
+class - members are private by default. when deriving class, default access specifiers are private
+
+- operator overloading
+to perform operations on user-defined data types
+eg. class_name operator + (class_name& other) {}
+
+- polymorphism
+compile time: method overloading, operator overloading
+run time: virtual function, function overriding
+
+- virtual function
+member func in base class that you redefine in derived class. 'virtual' keyword is used so c++ determines which function is to be invoked at the runtime based on type of object pointed by the base class pointer.
+
+- reference & pointer
+reference is like a pointer. another name of already existing variable. once a reference is initialized it can not be changed. array of references cannot be defined  while array of pointers can be defined. null value cannot be assigned to reference variable.
+
+- destructor
+when an object is destroyed, destructor is automatically called
+destructer overloading is not possible as they take no arguments. constructor overloading is possible
+
+- abstract class
+whose objects can never be created. a class can be made abstract by placing a pure virtual function in the class
+
+- static member and static member function
+when a variable is declared static, space for it is allocated for the lifetime of the program. No matter how many objects of that class have been created, there is only one copy of the static variable. same static variable is accessed by all the objects of the class
+static member function can be called even if no objects of the class exist and teh static function are acessed using the class name and the scope resolution operator ::
+static member function can't be virtual
+static member function dont have 'this' pointer
+
+- shallow copy and deep copy
+shallow copy: stores references of objects to the original memory address. faster. reflects changes made to copied object in the original object
+deep copy: make new and separate copy of entire object with its unique memory address. slower. does not reflect changes made to copied object in original object.
+
+- virtual and pure virtual function
+virtual function: member function in base class that you re-define in derived class.
+pure virtual function: has no implementation and is declared by assigning 0. It has no body
+eg.
+class base {
+	public:
+	virtual void fun()=0;
+}
+
+- this pointer
+this points to the object itself. the value of 'this' is set to the address of the object for which it is called.
+
+- namespace
+used for resolving the name conflict of the identifier. helps in logical division of the code.
+
+- normal overriding vs using virtual function
+virtual function uses the actual type whereas the normal function overriding uses the declared type.
+
+- Automatic memory management of the STL containers
+all STL containers memory is allocated on heap, even for vector. A plain array and std::array template are the only once that have memory on stack.
+contiguous memory allocation (whether on stack or heap) -> array, std::array, std::vector have got continuous memory allocation. all other are not continuous allocation
+
+- STL container memory allocations
+	- vector & string: dynamic array. after some time it will re-locate elements
+	- list: each element is new linked list node, so no re-allocation ever happens
+	- deque:  made of pages of elements. when a page is full, a new one is allocated and added to the list of pages. no re-allocation happens
+	- map/set/multimap/multiset: typically a binary tree, each element allocated on its own, no reallocations are ever performed
+	- unordered_map/unordered_multimap/unordered_set/unordered_multiset: a hash table. when table is full enough, rehashing and reallocation occurs.
+
+- data types in c++
+	- primary: int, char, bool, float, double, void
+	- derived: function, array, pointer, reference
+	- user defined: class, struct, union, enum, typedef
+
+- memory segments of a program
+	- heap: dynamically allocated variables are allocated here
+	- stack: function parameters, local variables and other function-related info is stored here
+	- data segment: initialized global and static variables are stored here
+
+- Heap segment
+	aka free store
+	keeps track of memory used for dynamical memory allocation
+	whenever new operator is used, that memory is allocated on heap
+	allocating memory on heap is slow
+	memory stays allocated until it is specifically deallocated or the application ends
+	large arrays, structs, classes can be stored here
+
+- Stack segment
+	keeps track of all active functions and handles allocation of all function parameters and local variables
+	when the program starts, main() function is pushed on the call stack
+
+	Flow when a function is called:-
+		- program encounters a func call
+		- stack frame is constructed and pushed on the stack. stack frame consists of:
+			- return address
+			- all function arguments
+			- memory for any local variables
+			- saved copies of registers modified by the function that need to be restored when the func returns
+		- CPU jumps to the function's start point
+		- instructions inside the func starts executing
+
+	Flow when function terminates:
+		- registers are restored from the call stack
+		- stack frame is popped off the stack. this frees the memory for all local variables and arguments
+		- return value is handles
+		- CPU resumes execution at return address
+
+	Stack overflow:-
+	stack has limited size (8MB for example). If program tries to allocate too much memory on the stack, stack overflow will result. stack overflow is the result of allocating too many variables on the stack and/or making too many nested function calls
+
+- lambda expressions
+example
+sort(x, x+n, [](float a, float b) {
+	return a < b;
+});
+
+[] - capture clause
+[&] - all variables that you refer to are captured by reference
+[=] - captured by value
+
+- std::function
+template type which represents "things you can invoke". It can hold any callable such as function pointer, lambda, other object with operator ()
+examples:-
+
+void global_f() {
+	cout << "global_f()" << '\n';
+}
+
+struct Functor {
+	void operator () () {
+		cout << "functor" << '\n';
+	}
+};
+
+int main() {
+	function<void()> f;
+	f = global_f;
+	f();                              // prints global_f()
+
+	f = []() {
+		cout << "lambda" << '\n';
+	};
+	f();                              // prints lambda
+
+	Functor functor;
+	f = functor;
+	f();                              // prints functor 
+}
+
+
+
+Dear <>,
+I thank you for the offer and I look fwd to join ggl. The offer looks good but it does not match my expectations. PLease re-consider to proceed further
+
+points -
+SDE-2 to L3 downlevel - it will take me sometime to get back to SDE-2
+base expecting it to be around 25L
+or stocks somewhere near 75k
+
+- at the end mention about re-location package

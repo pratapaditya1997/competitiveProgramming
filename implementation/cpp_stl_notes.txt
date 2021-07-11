@@ -38,7 +38,31 @@
 	- back() returns the last element of the queue
 	- size()
 
-4. priority queue
+4. deque
+	double ended queues
+
+	common functions:-
+	- insert()
+	- push_front()
+	- push_back()
+	- pop_front()
+	- pop_back()
+	- front()
+	- back()
+
+5. string
+	#include <string>
+
+	common functions:-
+	- size()
+	- empty()
+	- clear()
+	- stoi(str) returns int value for the string
+	- append(str) appends another string to the string at the end
+	- push_back()
+	- pop_back()
+
+6. priority queue
 	heap
 
 	common functions:-
@@ -59,19 +83,20 @@
 
 	priority_queue<int, vector<int>, Comp> pq;
 
-5. set
+7. set
 	associative container where each element is unique.
 
 	common functions:-
-	- insert()
+	- insert(elem)
 	- begin() returns iterator to the first element in the set
 	- end() returns iterator to the theoretical element that follows the last element in the set
 	- size()
-	- find() returns iterator to searched element if present, else iterator to end
+	- find(elem) returns iterator to searched element if present, else iterator to end
 	- count() returns count of occurences in a set. 1 if present, else 0
-	- empty() 
+	- empty()
+	- erase(iter)
 
-6. list
+8. list
 	store data in non-contiguous manner
 
 	common functions:-
@@ -83,21 +108,14 @@
 	- back() returns value of the last element in the list
 	- empty()
 
-7. unordered map
-	hash table
-
-	common functions:-
-	- count()
-	- erase()
-	- clear()
-	- size()
-
-8. ordered map
+9. ordered map
 	tree based map
 
 	common functions:-
 	- count()
-	- erase()
+	- erase(itr) removes entry referenced by the iterator
 	- clear()
 	- size()
+	- empty()
+	- find(k) returns iterator to the element
 

@@ -69,12 +69,3 @@ declare functions inline when they are small, say, 10 lines or fewer
 
 12. sizeof
 prefer sizeof(varname) to sizeof(type)
-
-
-
-
-
-
-
-
-

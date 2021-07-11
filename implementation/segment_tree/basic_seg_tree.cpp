@@ -38,7 +38,6 @@ int sum(int v, int tl, int tr, int l, int r) {
 /**
 * v - index of the current vertex
 * [tl, tr] - boundaries of the current segment
-* [l, r] - boundaries of the query
 * a[pos] = new_val is the update we want to make
 */
 void update(int v, int tl, int tr, int pos, int new_val) {
@@ -67,13 +66,3 @@ int find_kth(int v, int tl, int tr, int k) {
 	if (t[v*2] >= k) return find_kth(v*2, tl, tm, k);
 	else return find_kth(v*2 + 1, tm + 1, tr, k - t[v*2]);
 }
-
-
-
-
-
-
-
-
-
-
